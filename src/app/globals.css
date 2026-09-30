@@ -1,0 +1,2 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+*{box-sizing:border-box}body{margin:0;background:#080c14;color:#e8edf5}.scrollbar::-webkit-scrollbar{width:6px;height:6px}.scrollbar::-webkit-scrollbar-thumb{background:#2b394d;border-radius:9px}.grid-bg{background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:24px 24px}.flash{animation:flash .7s ease}@keyframes flash{50%{color:#5ee9b5;text-shadow:0 0 14px #5ee9b577}}
