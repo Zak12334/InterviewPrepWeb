@@ -8,6 +8,7 @@ import type { Language, Problem } from '@/types/content';
 import type { RunError, TestResult, TraceResponse } from '@/types/trace';
 import type { Progress } from '@/lib/progress';
 import { runTests, runTrace } from '@/lib/runClient';
+import { registerMemberCompletions, setCompletionContext } from '@/lib/editor/completions';
 import { showJson } from '@/lib/viz/scene';
 import { PlayerControls, usePlayer } from '@/components/viz/Player';
 import { Visualizer } from '@/components/viz/Visualizer';
@@ -151,7 +152,11 @@ export function CodeStage({ problem, lang, progress, update, onReflect, slow, on
     if (!stale && step && player.playing) editor.revealLineInCenterIfOutsideViewport(step.line);
   }, [step, stale, issue, atEnd, traced, player.playing]);
 
+  // The method list after "." needs the parameter types of the problem that is open.
+  useEffect(() => setCompletionContext(problem.signature.params), [problem]);
+
   const onMount: OnMount = (editor, monaco) => {
+    registerMemberCompletions(monaco);
     editorRef.current = editor;
     monacoRef.current = monaco;
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => visualizeRef.current(true));
@@ -276,6 +281,16 @@ export function CodeStage({ problem, lang, progress, update, onReflect, slow, on
                 tabSize: 4,
                 lineNumbersMinChars: 3,
                 renderLineHighlight: 'none',
+                // Only the method list after "." (see lib/editor/completions). No word guessing,
+                // no snippets, no inline suggestions: the code you write is all yours.
+                quickSuggestions: false,
+                suggestOnTriggerCharacters: true,
+                wordBasedSuggestions: 'off',
+                snippetSuggestions: 'none',
+                inlineSuggest: { enabled: false },
+                tabCompletion: 'off',
+                parameterHints: { enabled: false },
+                suggest: { showWords: false, showSnippets: false, showKeywords: false, preview: false, insertMode: 'replace' },
               }}
             />
           </div>
