@@ -1,2 +1,5 @@
-import { LearningWorkspace } from '@/components/LearningWorkspace';
-export default function Home(){return <LearningWorkspace/>}
+import { Dashboard } from '@/components/Dashboard';
+
+export default function Home() {
+  return <Dashboard />;
+}

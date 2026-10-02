@@ -1,2 +1,52 @@
-@tailwind base;@tailwind components;@tailwind utilities;
-*{box-sizing:border-box}body{margin:0;background:#080c14;color:#e8edf5}.scrollbar::-webkit-scrollbar{width:6px;height:6px}.scrollbar::-webkit-scrollbar-thumb{background:#2b394d;border-radius:9px}.grid-bg{background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:24px 24px}.flash{animation:flash .7s ease}@keyframes flash{50%{color:#5ee9b5;text-shadow:0 0 14px #5ee9b577}}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: #0a0e16;
+  color: #e6ebf3;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2b3a54 transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+textarea:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #5ee9b5;
+  outline-offset: 2px;
+}
+
+/* Show != and <= as typed, not as ligatures. */
+.font-mono,
+code,
+pre {
+  font-variant-ligatures: none;
+}
+
+/* Monaco decorations: the line the animation is on, and the line an error came from. */
+.tf-line {
+  background: rgba(94, 233, 181, 0.14);
+  box-shadow: inset 3px 0 0 #5ee9b5;
+}
+
+.tf-error-line {
+  background: rgba(251, 113, 133, 0.16);
+  box-shadow: inset 3px 0 0 #fb7185;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
